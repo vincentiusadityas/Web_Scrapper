@@ -4,7 +4,8 @@
   "description": "A web scrapper created for cermati.com assignment",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node scrapper.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/vincentiusadityas/Web_Scrapper#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.3",
     "request": "^2.85.0"
   }
 }

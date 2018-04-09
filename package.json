@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/vincentiusadityas/Web_Scrapper/issues"
   },
-  "homepage": "https://github.com/vincentiusadityas/Web_Scrapper#readme"
+  "homepage": "https://github.com/vincentiusadityas/Web_Scrapper#readme",
+  "dependencies": {
+    "request": "^2.85.0"
+  }
 }

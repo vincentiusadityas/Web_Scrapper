@@ -17,13 +17,14 @@ function getRequest(address, method) {
     });
 }
 
+// Main program
 getRequest(url, 'GET').then(function (body) {
     // call promise to process main page
     return processMainPage(body);
 }).then(function (result) {
     // write output to file
     var fs = require('fs');
-    fs.writeFile('solution.json', JSON.stringify(result, null, 1));
+    fs.writeFile('solution.json', JSON.stringify(result, null, 2));
 });
 
 function processMainPage(body) {
@@ -66,22 +67,23 @@ function getCategoryDetails(url) {
             var functionList = [];
 
             // process each link
-            $('ul#lists').find('a').each(function (index, element) {
+            $('ul.list2').find('a').each(function (index, element) {
                 var content = $(element);
                 var temp = {};
-                var target = $('ul#lists').find('a').length;
-                var aLink = $(this).attr('href');
+                var target = $('ul.list2').find('a').length;
+                var subUrl = $(this).attr('href');
                 temp = {
                     promo_title: $('span.promo-title', content).text(),
-                    link: aLink,
+                    link: subUrl,
                     img_src: $('img', content).attr('src'),
                     merchant_name: $('span.merchant-name', content).text(),
                     valid_until: $('span.valid-until', content).text()
                 };
                 jsonResultCategory.push(temp);
-                functionList.push(getAdditionalDetails(aLink));
+                functionList.push(getAdditionalDetails(subUrl));
             });
 
+            // insert all the additional details
             Promise.all(functionList)
                 .then(function (result) {
                     for (var i = 0; i < result.length; i++) {
@@ -97,9 +99,9 @@ function getCategoryDetails(url) {
     })
 }
 
-function getAdditionalDetails(url) {
+function getAdditionalDetails(subUrl) {
     return new Promise(function (resolve, reject) {
-        getRequest(url, 'GET').then(function (body) {
+        getRequest(subUrl, 'GET').then(function (body) {
             $ = cheerio.load(body.body, {
                 normalizeWhitespace: true
             });
